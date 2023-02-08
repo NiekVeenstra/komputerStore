@@ -5,7 +5,7 @@ let balance = 2069;
 let loanBalance = 0;
 let totalBalance = 0;
 
-bankBalance.innerText = balance;
+bankBalance.innerText = formatCurrency(balance);
 
 const handleGetLoan = () => {
   if (loanBalance !== 0) {
@@ -33,9 +33,14 @@ const handleGetLoan = () => {
   const table = document.createElement("TD");
   const tableName = document.createTextNode("Outstanding loan");
   table.appendChild(tableName);
-  const tableValue = document.createTextNode(loanBalance);
+  const tableValue = document.createTextNode(formatCurrency(loanBalance));
   table.appendChild(tableValue);
   document.getElementById("deptTable").appendChild(table);
 };
 
-//getLoan.addEventListener("click", handleGetLoan);
+function formatCurrency(amount) {
+  return new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  }).format(amount);
+}
