@@ -13,7 +13,7 @@
     </header>
 
     <main>
-        <section class="bankContainer" id="bankContainer">
+      <section class="bankContainer" id="bankContainer">
         <h2 class="userName" id="userName">Joe Banker</h2>
         <table class="bankTable">
           <tr>
@@ -23,13 +23,26 @@
           <tr class="deptTable" id="deptTable"></tr>
         </table>
 
-        <button onclick="handleGetLoan()" class="getLoanButton" id="getLoanButton">Get a loan</button>
+        <button onclick="handleGetLoan()" class="getLoanButton" id="getLoanButton">
+          Get a loan
+        </button>
       </section>
 
-      <section class="workContainer" id="workContainer"></section>
+      <section class="workContainer" id="workContainer">
+        <h2 class="title" id="title">Work</h2>
+        <table class="workTable">
+          <tr>
+            <td class="payTableTitle">Pay</td>
+            <td class="payTableValue" id="payTableValue">0</td>
+          </tr>
+        </table>
+
+        <button onclick="handleBank()" class="bankButton" id="bankButton">Bank</button>
+        <button onclick="handleWork()" class="workButton" id="workButton">Work</button>
+      </section>
     </main>
 
-    <footer></footer>
+    <footer>Footer</footer>
 
     <script src="app.js"></script>
   </body>
