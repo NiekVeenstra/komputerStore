@@ -1,6 +1,7 @@
 //bank
 const getLoan = document.getElementById("getLoanButton");
 const bankBalance = document.getElementById("bankBalance");
+const totalBalanceTable = document.getElementById("totalBalanceTable");
 
 const tableRow = document.getElementById("deptTable");
 
@@ -35,6 +36,8 @@ const updateData = () => {
     const tableValueId = document.getElementById("tableValueId");
     tableValueId.innerText = formatCurrency(loanBalance);
   }
+
+  totalBalance = balance + loanBalance;
 };
 
 updateData();
@@ -65,6 +68,11 @@ const handleGetLoan = () => {
 
   addLoanTable();
   addRepayButton();
+  updateData();
+
+  if (balance > 0 && loanBalance > 0) {
+    addTotalBalanceTable();
+  }
 };
 
 const handleWork = () => {
@@ -98,6 +106,10 @@ const handleBank = () => {
   if (loanBalance <= 0) {
     removeLoanTable();
     removeRepayButton();
+  }
+
+  if (totalBalance <= 0) {
+    removeTotalBalanceTable();
   }
 };
 
@@ -161,6 +173,29 @@ const handleRepayLoan = () => {
   }
 };
 
+const addTotalBalanceTable = () => {
+  const nameCell = document.createElement("td");
+  nameCell.id = "totalBalanceTableNameId";
+  const tableName = document.createTextNode("Total");
+  nameCell.appendChild(tableName);
+
+  const valueCell = document.createElement("td");
+  valueCell.id = "totalBalanceTableValueId";
+  const tableValue = document.createTextNode(formatCurrency(totalBalance));
+  valueCell.appendChild(tableValue);
+
+  tableRow.appendChild(nameCell);
+  tableRow.appendChild(valueCell);
+};
+
+const removeTotalBalanceTable = () => {
+  const nameCell = document.getElementById("totalBalanceTableNameId");
+  const valueCell = document.getElementById("totalBalanceTableValueId");
+  tableRow.removeChild(nameCell);
+  tableRow.removeChild(valueCell);
+  hasLoan = false;
+};
+
 // api call
 let computers = [];
 const computersElement = document.getElementById("laptopDropdown");
@@ -171,6 +206,8 @@ const infoContainerElement = document.getElementById("infoContainer");
 const computerTitleElement = document.getElementById("computerTitle");
 const computerInfoElement = document.getElementById("computerInfo");
 const selectedComputerPriceElement = document.getElementById("selectedComputerPrice");
+
+let computerPrice = 0;
 
 fetch("https://hickory-quilled-actress.glitch.me/computers")
   .then((response) => response.json())
@@ -187,6 +224,17 @@ const addComputersToMenu = (computers) => {
     paragraph.appendChild(document.createTextNode(spec));
     featureDataElement.appendChild(paragraph);
   });
+
+  computerTitleElement.innerText = computers[0].title;
+  computerInfoElement.innerText = computers[0].description;
+  selectedComputerPriceElement.innerText = computers[0].price;
+  computerPrice = computers[0].price;
+
+  const selectedComputer = computers[0];
+  let imageElement = imageContainerElement.querySelector("img");
+  imageElement = document.createElement("img");
+  imageContainerElement.appendChild(imageElement);
+  imageElement.src = `https://hickory-quilled-actress.glitch.me/${selectedComputer.image}`;
 };
 
 const addComputerToMenu = (computer) => {
@@ -197,6 +245,7 @@ const addComputerToMenu = (computer) => {
 };
 
 const handleComputerMenuChange = (e) => {
+  console.log("menuChange");
   const selectedComputer = computers[e.target.selectedIndex];
   updateSelectionArea(selectedComputer);
   updateComputerInfoArea(selectedComputer);
@@ -211,32 +260,40 @@ const updateSelectionArea = (selectedComputer) => {
     featureData += x + "\n";
   });
   featureDataElement.innerText = featureData;
+  computerPrice = selectedComputer.price;
 };
 
 const updateComputerInfoArea = (selectedComputer) => {
   let imageElement = imageContainerElement.querySelector("img");
-  // let nameElement = infoContainerElement.querySelector("h2");
-  // let infoElement = infoContainerElement.querySelector("p");
+
   if (!imageElement) {
     imageElement = document.createElement("img");
     imageContainerElement.appendChild(imageElement);
   }
   imageElement.src = `https://hickory-quilled-actress.glitch.me/${selectedComputer.image}`;
 
-  // if (!nameElement) {
-  //    nameElement = document.createElement("h2");
-  //    infoElement = document.createElement("p");
-  //    infoContainerElement.appendChild(nameElement);
-  //    infoContainerElement.appendChild(infoElement);
-  // }
-  // nameElement.innerText = selectedComputer.title;
-  // infoElement.innerText = selectedComputer.description;
-
   computerTitleElement.innerText = selectedComputer.title;
   computerInfoElement.innerText = selectedComputer.description;
-  selectedComputerPriceElement.innerText = formatCurrency(selectedComputer.price / 10);
+  selectedComputerPriceElement.innerText = formatCurrency(selectedComputer.price);
 };
 
 const handleBuyNow = () => {
-  
+  console.log("buy now!");
+  console.log(computerPrice);
+  console.log(balance);
+  console.log(loanBalance);
+  console.log(`total: ${balance + loanBalance}`);
+  console.log(totalBalance);
+  if (totalBalance >= computerPrice) {
+    totalBalance -= computerPrice;
+    if (balance >= computerPrice) {
+      balance -= computerPrice;
+    } else {
+      restPrice = computerPrice - balance;
+      loanBalance -= restPrice;
+    }
+  } else {
+    console.log("not enough money sorry");
+  }
+  updateData();
 };

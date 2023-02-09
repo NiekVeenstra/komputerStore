@@ -21,6 +21,7 @@
             <td class="bankBalanceTable" id="bankBalance">0</td>
           </tr>
           <tr class="deptTable" id="deptTable"></tr>
+          <tr class="totalBalanceTable" id="totalBalanceTable"></tr>
         </table>
 
         <button onclick="handleGetLoan()" class="getLoanButton" id="getLoanButton">
@@ -53,14 +54,14 @@
         </div>
 
         <div class="computerInfoAreaContainer">
-          <div style="border:solid red 4px; width:30%;" class="imageContainer" id="imageContainer"></div>
+          <div style="width:30%;" class="imageContainer" id="imageContainer"></div>
           <div class="infoConainer" id="infoContainer">
             <h2 class="computerTitle" id="computerTitle"></h2>
             <p class="computerInfo" id="computerInfo"></p>
           </div>
           <div class="salesContainer">
             <span id="selectedComputerPrice"></span>
-            <button>BUY NOW</button>
+            <button onclick="handleBuyNow()">BUY NOW</button>
           </div>
         </div>
       </section>
