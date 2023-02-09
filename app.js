@@ -163,3 +163,16 @@ const handleRepayLoan = () => {
     removeRepayButton();
   }
 }
+
+// api call
+  const fetchData = async () => {
+    try {
+      const response = await fetch("https://hickory-quilled-actress.glitch.me/computers");
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
+
+  fetchData();
