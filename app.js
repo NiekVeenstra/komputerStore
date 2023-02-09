@@ -2,6 +2,8 @@
 const getLoan = document.getElementById("getLoanButton");
 const bankBalance = document.getElementById("bankBalance");
 
+const tableRow = document.getElementById("deptTable");
+
 //work
 const bankButton = document.getElementById("bankButton");
 const workButton = document.getElementById("workButton");
@@ -30,8 +32,8 @@ const updateData = () => {
   payCheckValue.innerText = formatCurrency(payBalance);
 
   if (hasLoan) {
-    const loanBalanceId = document.getElementById("loanBalanceId");
-    loanBalanceId.innerText = formatCurrency(loanBalance);
+    const tableValueId = document.getElementById("tableValueId");
+    tableValueId.innerText = formatCurrency(loanBalance);
   }
 };
 
@@ -107,19 +109,25 @@ const updateBalances = (updatedBalance, updatedLoanBalance) => {
 };
 
 const addLoanTable = () => {
-  const table = document.createElement("TD");
-  table.id = "loanBalanceId";
+  const nameCell = document.createElement("td");
+  nameCell.id = "tableNameId";
   const tableName = document.createTextNode("Outstanding loan");
-  table.appendChild(tableName);
+  nameCell.appendChild(tableName);
+
+  const valueCell = document.createElement("td");
+  valueCell.id = "tableValueId";
   const tableValue = document.createTextNode(formatCurrency(loanBalance));
-  table.appendChild(tableValue);
-  document.getElementById("deptTable").appendChild(table);
+  valueCell.appendChild(tableValue);
+
+  tableRow.appendChild(nameCell);
+  tableRow.appendChild(valueCell);
 };
 
 const removeLoanTable = () => {
-  const parentNode = document.getElementById("deptTable");
-  const table = document.getElementById("loanBalanceId");
-  parentNode.removeChild(table);
+  const nameCell = document.getElementById("tableNameId");
+  const valueCell = document.getElementById("tableValueId");
+  tableRow.removeChild(nameCell);
+  tableRow.removeChild(valueCell);
   hasLoan = false;
 };
 
@@ -127,6 +135,7 @@ const addRepayButton = () => {
   const button = document.createElement("button");
   button.id = "repayLoanButtonId";
   button.textContent = "Repay Loan";
+  button.addEventListener("click", handleRepayLoan);
   document.getElementById("buttonParent").appendChild(button);
 };
 
@@ -136,42 +145,21 @@ const removeRepayButton = () => {
   buttonParent.removeChild(button);
 };
 
-// const handleBank = () => {
-//   if (payBalance === 0) {
-//     console.log("You first need to work.");
-//     return;
-//   }
+const handleRepayLoan = () => {
+  if (loanBalance < payBalance) {
+    updateBalances(payBalance - loanBalance, 0);
+    removeLoanTable();
+    removeRepayButton();
+    return;
+  }
 
-//   if (loanBalance === 0) {
-//     balance += payBalance;
-//     payBalance = 0;
-//     updateData();
-//     return;
-//   }
+  updateBalances(
+    payBalance - payBalance,
+    loanBalance - payBalance
+  );
 
-//   if (loanBalance < payBalance * deductLoanPercentage) {
-//     balance += payBalance - loanBalance;
-//     payBalance = 0;
-//     loanBalance = 0;
-//     updateData();
-
-//     const parentNode = document.getElementById("deptTable");
-//     const table = document.getElementById("loanBalanceId");
-//     parentNode.removeChild(table);
-//     hasLoan = false;
-//     return;
-//   }
-
-//   loanBalance -= payBalance * deductLoanPercentage;
-//   balance += payBalance - payBalance * deductLoanPercentage;
-//   payBalance = 0;
-//   updateData();
-
-//   console.log(loanBalance);
-//   if (loanBalance <= 0) {
-//     const parentNode = document.getElementById("deptTable");
-//     const table = document.getElementById("loanBalanceId");
-//     parentNode.removeChild(table);
-//     hasLoan = false;
-//   }
-// };
+  if (loanBalance <= 0) {
+    removeLoanTable();
+    removeRepayButton();
+  }
+}
