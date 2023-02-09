@@ -153,26 +153,90 @@ const handleRepayLoan = () => {
     return;
   }
 
-  updateBalances(
-    payBalance - payBalance,
-    loanBalance - payBalance
-  );
+  updateBalances(payBalance - payBalance, loanBalance - payBalance);
 
   if (loanBalance <= 0) {
     removeLoanTable();
     removeRepayButton();
   }
-}
+};
 
 // api call
-  const fetchData = async () => {
-    try {
-      const response = await fetch("https://hickory-quilled-actress.glitch.me/computers");
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  };
+let computers = [];
+const computersElement = document.getElementById("laptopDropdown");
+const featureDataElement = document.getElementById("featureData");
+const imageContainerElement = document.getElementById("imageContainer");
+const infoContainerElement = document.getElementById("infoContainer");
 
-  fetchData();
+const computerTitleElement = document.getElementById("computerTitle");
+const computerInfoElement = document.getElementById("computerInfo");
+const selectedComputerPriceElement = document.getElementById("selectedComputerPrice");
+
+fetch("https://hickory-quilled-actress.glitch.me/computers")
+  .then((response) => response.json())
+  .then((data) => (computers = data))
+  .then((computers) => addComputersToMenu(computers))
+  .catch((error) => {
+    console.error("An error occurred:", error);
+  });
+
+const addComputersToMenu = (computers) => {
+  computers.forEach((x) => addComputerToMenu(x));
+  computers[0].specs.forEach((spec) => {
+    const paragraph = document.createElement("p");
+    paragraph.appendChild(document.createTextNode(spec));
+    featureDataElement.appendChild(paragraph);
+  });
+};
+
+const addComputerToMenu = (computer) => {
+  const computerElement = document.createElement("option");
+  computerElement.value = computer.id;
+  computerElement.appendChild(document.createTextNode(computer.title));
+  computersElement.appendChild(computerElement);
+};
+
+const handleComputerMenuChange = (e) => {
+  const selectedComputer = computers[e.target.selectedIndex];
+  updateSelectionArea(selectedComputer);
+  updateComputerInfoArea(selectedComputer);
+};
+
+computersElement.addEventListener("change", handleComputerMenuChange);
+
+const updateSelectionArea = (selectedComputer) => {
+  const specs = selectedComputer.specs;
+  let featureData = "";
+  specs.forEach((x) => {
+    featureData += x + "\n";
+  });
+  featureDataElement.innerText = featureData;
+};
+
+const updateComputerInfoArea = (selectedComputer) => {
+  let imageElement = imageContainerElement.querySelector("img");
+  // let nameElement = infoContainerElement.querySelector("h2");
+  // let infoElement = infoContainerElement.querySelector("p");
+  if (!imageElement) {
+    imageElement = document.createElement("img");
+    imageContainerElement.appendChild(imageElement);
+  }
+  imageElement.src = `https://hickory-quilled-actress.glitch.me/${selectedComputer.image}`;
+
+  // if (!nameElement) {
+  //    nameElement = document.createElement("h2");
+  //    infoElement = document.createElement("p");
+  //    infoContainerElement.appendChild(nameElement);
+  //    infoContainerElement.appendChild(infoElement);
+  // }
+  // nameElement.innerText = selectedComputer.title;
+  // infoElement.innerText = selectedComputer.description;
+
+  computerTitleElement.innerText = selectedComputer.title;
+  computerInfoElement.innerText = selectedComputer.description;
+  selectedComputerPriceElement.innerText = formatCurrency(selectedComputer.price / 10);
+};
+
+const handleBuyNow = () => {
+  
+};
