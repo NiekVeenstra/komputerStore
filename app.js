@@ -13,7 +13,6 @@ const payCheckValue = document.getElementById("payTableValue");
 //bank variable(s)
 let balance = 2069;
 let loanBalance = 0;
-let totalBalance = 0;
 let hasLoan = false;
 
 //work variable(s)
@@ -36,8 +35,6 @@ const updateData = () => {
     const tableValueId = document.getElementById("tableValueId");
     tableValueId.innerText = formatCurrency(loanBalance);
   }
-
-  totalBalance = balance + loanBalance;
 };
 
 updateData();
@@ -65,14 +62,11 @@ const handleGetLoan = () => {
 
   loanBalance += loanBalanceInput;
   hasLoan = true;
+  balance += loanBalanceInput;
 
   addLoanTable();
   addRepayButton();
   updateData();
-
-  if (balance > 0 && loanBalance > 0) {
-    addTotalBalanceTable();
-  }
 };
 
 const handleWork = () => {
@@ -106,10 +100,6 @@ const handleBank = () => {
   if (loanBalance <= 0) {
     removeLoanTable();
     removeRepayButton();
-  }
-
-  if (totalBalance <= 0) {
-    removeTotalBalanceTable();
   }
 };
 
@@ -171,29 +161,6 @@ const handleRepayLoan = () => {
     removeLoanTable();
     removeRepayButton();
   }
-};
-
-const addTotalBalanceTable = () => {
-  const nameCell = document.createElement("td");
-  nameCell.id = "totalBalanceTableNameId";
-  const tableName = document.createTextNode("Total");
-  nameCell.appendChild(tableName);
-
-  const valueCell = document.createElement("td");
-  valueCell.id = "totalBalanceTableValueId";
-  const tableValue = document.createTextNode(formatCurrency(totalBalance));
-  valueCell.appendChild(tableValue);
-
-  tableRow.appendChild(nameCell);
-  tableRow.appendChild(valueCell);
-};
-
-const removeTotalBalanceTable = () => {
-  const nameCell = document.getElementById("totalBalanceTableNameId");
-  const valueCell = document.getElementById("totalBalanceTableValueId");
-  tableRow.removeChild(nameCell);
-  tableRow.removeChild(valueCell);
-  hasLoan = false;
 };
 
 // api call
@@ -278,20 +245,9 @@ const updateComputerInfoArea = (selectedComputer) => {
 };
 
 const handleBuyNow = () => {
-  console.log("buy now!");
-  console.log(computerPrice);
-  console.log(balance);
-  console.log(loanBalance);
-  console.log(`total: ${balance + loanBalance}`);
-  console.log(totalBalance);
-  if (totalBalance >= computerPrice) {
-    totalBalance -= computerPrice;
-    if (balance >= computerPrice) {
-      balance -= computerPrice;
-    } else {
-      restPrice = computerPrice - balance;
-      loanBalance -= restPrice;
-    }
+  if (balance >= computerPrice) {
+    balance -= computerPrice;
+    console.log("have fun with your new laptop");
   } else {
     console.log("not enough money sorry");
   }
