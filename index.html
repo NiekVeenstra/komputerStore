@@ -4,32 +4,34 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
     <title>Komputer Store Assignment</title>
   </head>
   <body>
-    <header>
-      <h1>Komputer Store</h1>
-    </header>
+    <div class="header">
+      <h1 class="header__pageTitle">Niek's Computer Store</h1>
+    </div>
 
-    <main>
-      <section class="bankContainer" id="bankContainer">
-        <h2 class="userName" id="userName">Joe Banker</h2>
-        <table class="bankTable">
-          <tr>
+    <div class="main">
+      <div class="topContainer">
+
+        <div class="bankContainer" id="bankContainer">
+          <h2 class="bankContainer__userName" id="userName">Joe Banker</h2>
+          <table class="bankTable">
+            <tr>
             <td class="balanceTable">Balance</td>
             <td class="bankBalanceTable" id="bankBalance">0</td>
           </tr>
           <tr class="deptTable" id="deptTable"></tr>
           <tr class="totalBalanceTable" id="totalBalanceTable"></tr>
         </table>
-
+        
         <button onclick="handleGetLoan()" class="getLoanButton" id="getLoanButton">
           Get a loan
         </button>
-      </section>
-
-      <section class="workContainer" id="workContainer">
+      </div>
+      
+      <div class="workContainer" id="workContainer">
         <h2 class="title" id="title">Work</h2>
         <table class="workTable">
           <tr>
@@ -37,13 +39,14 @@
             <td class="payTableValue" id="payTableValue">0</td>
           </tr>
         </table>
-
+        
         <button onclick="handleBank()" class="bankButton" id="bankButton">Bank</button>
         <button onclick="handleWork()" class="workButton" id="workButton">Work</button>
         <div class="buttonParent" id="buttonParent"></div>
-      </section>
-
-      <section class="laptopShop">
+      </div>
+    </div>
+      
+      <div class="laptopShopContainer">
         <div class="laptopSelectionContainer" id="laptopsSelectionContainer">
           <h2>Laptops</h2>
           <select name="laptopDropdown" id="laptopDropdown"></select>
@@ -54,7 +57,7 @@
         </div>
 
         <div class="computerInfoAreaContainer">
-          <div style="width:30%;" class="imageContainer" id="imageContainer"></div>
+          <div style="width: 30%" class="imageContainer" id="imageContainer"></div>
           <div class="infoConainer" id="infoContainer">
             <h2 class="computerTitle" id="computerTitle"></h2>
             <p class="computerInfo" id="computerInfo"></p>
@@ -64,10 +67,10 @@
             <button onclick="handleBuyNow()">BUY NOW</button>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
 
-    <footer>Footer</footer>
+    <div class="footer">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, ratione!</div>
 
     <script src="app.js"></script>
   </body>
