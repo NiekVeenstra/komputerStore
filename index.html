@@ -14,63 +14,70 @@
 
     <div class="main">
       <div class="topContainer">
-
-        <div class="bankContainer" id="bankContainer">
+        <div class="bankContainer containerStyle" id="bankContainer">
           <h2 class="bankContainer__userName" id="userName">Joe Banker</h2>
-          <table class="bankTable">
+          <table class="bankContainer__bankTable">
             <tr>
-            <td class="balanceTable">Balance</td>
-            <td class="bankBalanceTable" id="bankBalance">0</td>
-          </tr>
-          <tr class="deptTable" id="deptTable"></tr>
-          <tr class="totalBalanceTable" id="totalBalanceTable"></tr>
-        </table>
-        
-        <button onclick="handleGetLoan()" class="getLoanButton" id="getLoanButton">
-          Get a loan
-        </button>
-      </div>
-      
-      <div class="workContainer" id="workContainer">
-        <h2 class="title" id="title">Work</h2>
-        <table class="workTable">
-          <tr>
-            <td class="payTableTitle">Pay</td>
-            <td class="payTableValue" id="payTableValue">0</td>
-          </tr>
-        </table>
-        
-        <button onclick="handleBank()" class="bankButton" id="bankButton">Bank</button>
-        <button onclick="handleWork()" class="workButton" id="workButton">Work</button>
-        <div class="buttonParent" id="buttonParent"></div>
-      </div>
-    </div>
-      
-      <div class="laptopShopContainer">
-        <div class="laptopSelectionContainer" id="laptopsSelectionContainer">
-          <h2>Laptops</h2>
+              <td class="balanceTable">Balance</td>
+              <td class="bankBalanceTable" id="bankBalance">0</td>
+            </tr>
+            <tr class="deptTable" id="deptTable"></tr>
+            <tr class="totalBalanceTable" id="totalBalanceTable"></tr>
+          </table>
+
+          <div class="buttonContainer">
+            <button onclick="handleGetLoan()" class="getLoanButton" id="getLoanButton">
+              Get a loan
+            </button>
+          </div>
+        </div>
+
+        <div class="workContainer containerStyle" id="workContainer">
+          <h2 class="workContainer__title" id="title">Work</h2>
+          <table class="workContainer__workTable">
+            <tr>
+              <td class="payTableTitle">Pay</td>
+              <td class="payTableValue" id="payTableValue">0</td>
+            </tr>
+          </table>
+
+          <div class="buttonContainer">
+            <button onclick="handleBank()" class="bankButton" id="bankButton">Bank</button>
+            <button onclick="handleWork()" class="workButton" id="workButton">Work</button>
+          </div>
+          <div class="buttonParent" id="buttonParent"></div>
+        </div>
+
+        <div class="laptopSelectionContainer containerStyle" id="laptopsSelectionContainer">
+          <h2 class="laptopSelectionContainer__title">Laptops</h2>
           <select name="laptopDropdown" id="laptopDropdown"></select>
           <div>
             <h3>Features:</h3>
             <p class="featureData" id="featureData"></p>
           </div>
         </div>
+      </div>
 
+      <div class="laptopShopContainer">
         <div class="computerInfoAreaContainer">
-          <div style="width: 30%" class="imageContainer" id="imageContainer"></div>
-          <div class="infoConainer" id="infoContainer">
+          <div class="computerInfoAreaContainer__imageContainer" id="imageContainer"></div>
+          <div class="computerInfoAreaContainer__infoContainer" id="infoContainer">
             <h2 class="computerTitle" id="computerTitle"></h2>
             <p class="computerInfo" id="computerInfo"></p>
+            <span id="selectedComputerPrice"></span>
           </div>
           <div class="salesContainer">
-            <span id="selectedComputerPrice"></span>
-            <button onclick="handleBuyNow()">BUY NOW</button>
+            <div class="buttonContainer">
+              <button onclick="handleBuyNow()">BUY NOW</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="footer">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, ratione!</div>
+    <div class="footer">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, ratione!
+    </div>
 
     <script src="app.js"></script>
   </body>

@@ -7,13 +7,40 @@
 body {
   width: 100%;
   min-width: 420px;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
-  //align-items:;
   justify-content: space-between;
   flex-direction: column;
+
   img {
     max-width: 100%;
+    max-height: 100%;
+    width: auto;
+
+    display: block;
+    margin: 0 auto;
+  }
+
+  button {
+    width: 100%;
+    height: 2rem;
+    margin-top: 0.5rem;
+
+    border: solid black 0.02rem;
+    border-radius: 2em;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    background-color: rgb(150, 217, 119);
+
+    position: relative;
+    transition: 0.25s ease-out;
+
+    &:hover {
+      color: rgb(233, 168, 57);
+      background-color: rgb(150, 217, 119);
+      border-color: transparent;
+    }
   }
 
   .header {
@@ -31,10 +58,16 @@ body {
 
   .main {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+
+    .laptopSelectionContainer__title,
+    .workContainer__title,
+    .bankContainer__userName {
+      text-decoration: underline;
+    }
 
     .topContainer {
       width: 100%;
@@ -44,33 +77,111 @@ body {
       flex-wrap: wrap;
     }
 
-    .bankContainer {
+    .buttonContainer {
+      height: 3rem;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: end;
+    }
+
+    .containerStyle {
       background-color: #fff;
       border-radius: 0.5rem;
       box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
       padding: 1rem 0.5rem;
-      width: 45%;
-      min-width: 10rem;
+      width: 15rem;
       margin: 1rem 1rem 1rem 1rem;
+    }
+
+    .bankContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      &__bankTable {
+        width: 100%;
+        height: 100%;
+        margin: 1rem 0;
+        tr {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        }
+      }
     }
 
     .workContainer {
-      background-color: #fff;
-      border-radius: 0.5rem;
-      box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
-      padding: 1rem 0.5rem;
-      width: 45%;
-      min-width: 10rem;
-      margin: 1rem 1rem 1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      &__workTable {
+        width: 100%;
+        height: 100%;
+        margin: 1rem 0;
+        tr {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        }
+      }
+    }
+
+    .laptopSelectionContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      min-height: 21rem;
+
+      select {
+        margin: 1rem 0;
+      }
+
+      div {
+        margin: 1rem 0;
+      }
     }
 
     .laptopShopContainer {
-      background-color: #fff;
-      border-radius: 0.5rem;
-      box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
-      padding: 1rem 0.5rem;
-      width: calc(90% + 2rem);
-      margin-top: 1rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      width: 90%;
+      max-width: 49rem;
+
+      .computerInfoAreaContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        background-color: #fff;
+        border-radius: 0.5rem;
+        box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
+        padding: 1rem 0.5rem;
+        width: 100%;
+        margin-top: 1rem;
+
+        &__imageContainer {
+          width: 100%;
+          height: 230px;
+          display: inline-block;
+        }
+
+        &__infoContainer {
+          width: 100%;
+        }
+
+        .salesContainer {
+          width: 100%;
+          text-align: center;
+        }
+      }
     }
   }
 
@@ -78,6 +189,7 @@ body {
     height: 6rem;
     background-color: black;
     color: white;
+    margin-top: 1rem;
 
     display: flex;
     align-items: center;
