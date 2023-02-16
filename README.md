@@ -19,15 +19,17 @@ Open the index.html file in your web browser.
 
 ## Features
 - Browse available products
-- Add items to the shopping cart
-- View the shopping cart and update quantities
-- Checkout and complete a purchase
+- Buy items
+- Work / get money
+- deposit money
+- get loan
 
 ## Built with
 - HTML
 - CSS
 - JavaScript
-- Acknowledgements
+
+## Acknowledgements
 This project was built as part of a learning exercise and was inspired by various e-commerce websites.
 
 ## Authors
